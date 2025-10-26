@@ -1,0 +1,93 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Train1_October.Data;
+using Train1_October.Models;
+
+namespace Train1_October.Controllers
+{
+    public class ItemsController : Controller
+    {
+        public ItemsController(AppDbContext db)
+        {
+            _db = db;
+        }
+        private readonly AppDbContext _db;
+        public IActionResult Index()
+        {
+            IEnumerable<Item> ll = _db.items.ToList();
+            return View(ll);
+        }
+        [HttpGet]
+        public IActionResult Create()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Item i)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(i);
+            }
+            _db.items.Add(i);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        [HttpGet("id")]
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var item = _db.items.Find(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return View(item);
+
+        }
+    
+        [HttpPost("id")]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit([FromForm]Item i)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(i);
+            }
+            _db.items.Update(i);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        } 
+
+        [HttpGet]
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var item = _db.items.Find(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return View(item);
+        }
+        [HttpPost,ActionName("Delete")]
+        public IActionResult DeleteItem(int? id)
+        {
+            var item = _db.items.Find(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            _db.items.Remove(item);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+    }
+}

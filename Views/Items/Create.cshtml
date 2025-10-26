@@ -1,0 +1,43 @@
+﻿@model Train1_October.Models.Item
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="row">
+    <div class="col-form-label-lg">
+        <form  method="post" >
+            <div>
+                <h1>Create</h1>
+
+                <h4>New Item</h4>
+                <hr />
+            </div>
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="col-form-label-lg">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="col-form-label-lg">
+                <label asp-for="Price" class="control-label" ></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<br />
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Back to Items</a>
+</div>
+
+
+@*is server side validation*@
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

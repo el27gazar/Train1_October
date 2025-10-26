@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Item>
+
+@{
+    ViewData["Title"] = "Items";
+}
+
+<h1>Items</h1>
+<div class="align-content-lg-end">
+<a asp-action="Create" class="btn btn-primary" > Create </a>
+</div>
+<br />
+<table class="table table-hover" >
+        <tr >
+            <th scope="col" >
+                Name
+            </th>
+            <th>
+                Price
+            </th>
+        </tr>
+    
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td scope="row"> 
+              @item.Name
+            </td>
+            <td>
+              @item.Price
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-info"> Edit </a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"> Delete </a>
+            </td>
+        </tr>
+    }
+   
+
+</table>
