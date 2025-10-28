@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Train1_October.Data;
 using Train1_October.Models;
 
@@ -21,7 +22,7 @@ namespace Train1_October.Controllers
         }
         public IActionResult Index()
         {
-            IEnumerable<Item> ll = _db.items.ToList();
+            IEnumerable<Item> ll = _db.items.Include(C => C.Category).ToList();
             return View(ll);
         }
         [HttpGet]
