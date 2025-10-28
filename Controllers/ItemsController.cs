@@ -32,6 +32,7 @@ namespace Train1_October.Controllers
             }
             _db.items.Add(i);
             _db.SaveChanges();
+            TempData["success"] = "Item created successfully";
             return RedirectToAction("Index");
         }
         [HttpGet("id")]
@@ -60,6 +61,7 @@ namespace Train1_October.Controllers
             }
             _db.items.Update(i);
             _db.SaveChanges();
+            TempData["success"] = "Item updated successfully";
             return RedirectToAction("Index");
         } 
 
@@ -87,6 +89,7 @@ namespace Train1_October.Controllers
             }
             _db.items.Remove(item);
             _db.SaveChanges();
+            TempData["success"] = "Item deleted successfully";
             return RedirectToAction("Index");
         }
     }
